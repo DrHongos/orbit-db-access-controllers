@@ -3,6 +3,7 @@
 const AccessController = require('./access-controller-interface')
 const isValidEthAddress = require('./utils/is-valid-eth-address')
 const io = require('orbit-db-io')
+const type = 'daohausmember'
 const abi = [{"type":"function",
 "stateMutability":"view",
 "payable":false,
@@ -28,7 +29,7 @@ export default class DaoHausController extends AccessController {
 
 
 
-    static get type () { return 'daohausmember' } // Return the type for this controller
+    static get type () { return type } // Return the type for this controller
 
     get address () {
       return this.contractAddress
@@ -36,17 +37,8 @@ export default class DaoHausController extends AccessController {
 
 
     async load (address) {
-      if (address) {
-        try {
-          if (address.indexOf('/ipfs') === 0) { address = address.split('/')[2] }
-          const access = await io.read(this._ipfs, address)
-          this.contractAddress = access.contractAddress
-          this.abi = JSON.parse(access.abi)
-        } catch (e) {
-          console.log('ContractAccessController.load ERROR:', e)
-        }
-      }
-      this.contract = new this.web3.Contract(this.abi, this.contractAddress)
+
+      this.contract = new this.web3.Contract(this.abi, this.contractAddress) // see this! https://docs.ethers.io/v5/api/contract/contract/#Contract--creating
       // https://github.com/orbitdb/orbit-db-access-controllers/blob/main/src/contract-access-controller.js
     }
 

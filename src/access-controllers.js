@@ -6,11 +6,13 @@ const LegacyIPFSAccessController = require('./legacy-ipfs-access-controller')
 const IPFSAccessController = require('./ipfs-access-controller')
 const OrbitDBAccessController = require('./orbitdb-access-controller')
 const DaoHausController = require('./access_test')
+const ContractAccessController = require('./contract-access-controller')
 const supportedTypes = {
   'legacy-ipfs': LegacyIPFSAccessController,
   ipfs: IPFSAccessController,
-  orbitdb: OrbitDBAccessController,
-  daohausmember:DaoHausController
+    // orbitdb: OrbitDBAccessController,
+  'daohausmember':DaoHausController,
+  'eth-contract/cool-contract':ContractAccessController
 }
 
 const getHandlerFor = (type) => {
