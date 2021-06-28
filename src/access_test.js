@@ -1,6 +1,6 @@
 'use strict'
 
-const AccessController = require('access-controller-interface')
+const AccessController = require('./access-controller-interface')
 const isValidEthAddress = require('./utils/is-valid-eth-address')
 const io = require('orbit-db-io')
 const abi = [{"type":"function",
